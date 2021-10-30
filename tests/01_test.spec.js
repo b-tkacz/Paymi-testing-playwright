@@ -16,11 +16,6 @@ test('password input', async ({ page }) => {
 });
 
 
-
-
-
-
-
 test('user_validation', async ({ page }) => {
 
     await page.goto('/sign_in');
