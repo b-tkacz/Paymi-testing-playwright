@@ -24,10 +24,8 @@ test('password input', async ({ page }) => {
 test('user_validation', async ({ page }) => {
 
     await page.goto('/sign_in');
-    // Click input:("Log In")
     await page.click('input:has-text("Log In")');
     const errorTxt = page.locator('#email-error .error-text');
-    // Expect text=Email can't be blank
     await expect(errorTxt).toHaveText('Email can\'t be blank');
 
 });
@@ -35,45 +33,43 @@ test('user_validation', async ({ page }) => {
 test('password_validation', async ({ page }) => {
 
     await page.goto('/sign_in');  
-    // Click input:("Log In")
     await page.click('input:has-text("Log In")');
     const errorTxt = page.locator('#password-error .error-text');
-    // Expect text=Password can't be blank
     await expect(errorTxt).toHaveText('Password can\'t be blank');
 
-  });
-
-//   test('wrong_username_password', async ({ page }) => {
-    
-//     await page.goto('/users/sign_in');
-//     await page.fill('input[name="#user_email"]', 'user')
-//     await page.fill('input', 'password')
-//     await page.click('input:has-text("Register Now!")');
-//     const errorTxt = page.locator('.error-box__errors');
-//     // Expect text=Invalid email address or password.
-//     await expect(errorTxt).toHaveText('Invalid email address or password.');  
-    
-// });
+});
 
 
-  test('go to sign up', async ({ page }) => {
+test('wrong username and password', async ({ page }) => {
+        await page.goto('/users/sign_in');
+        await page.click('input[name="user[email]"]');
+        await page.fill('input[name="user[email]"]', 'userusername@email.com');
+        await page.press('input[name="user[email]"]', 'Tab');
+        await page.fill('input[name="user[password]"]', 'Password54321');
+        await page.click('input:has-text("Log In")');
+        const errorTxt = page.locator('.error-box__errors');
+        await expect(errorTxt).toHaveText('Invalid email address or password.');
+});
+
+
+test('go to sign up', async ({ page }) => {
 
     await page.goto('/users/sign_up');
   
-  });
+});
   
-  test('username input sign up', async ({ page }) => {
+test('username input sign up', async ({ page }) => {
       await page.goto('/users/sign_up');
       await expect(page.locator('#user_email').first()).toBeVisible();
   });
   
   
-  test('password input sign up', async ({ page }) => {
+test('password input sign up', async ({ page }) => {
       await page.goto('/users/sign_up');
       await expect(page.locator('.password-field').first()).toBeVisible();
   });
 
-  test('referral', async ({ page }) => {
+test('referral', async ({ page }) => {
     await page.goto('/users/sign_up');
     await expect(page.locator('#user_referral_sign_up_code').first()).toBeVisible();
 });
