@@ -1,9 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('go to', async ({ page }) => {
-
   await page.goto('/sign_in');
-
 });
 
 test('username input', async ({ page }) => {
@@ -89,10 +87,8 @@ test('terms and conditions label', async ({ page }) => {
 test('registration_validation_email', async ({ page }) => {
     
     await page.goto('/users/sign_up');
-    // Click input:("Register")
     await page.click('input:has-text("Register Now!")');
     const errorTxt = page.locator('#email-error .error-text');
-    // Expect text=Email can't be blank
     await expect(errorTxt).toHaveText('Email can\'t be blank');
     
 
@@ -102,10 +98,8 @@ test('registration_validation_email', async ({ page }) => {
 test('registration_validation_password', async ({ page }) => {
     
     await page.goto('/users/sign_up');
-    // Click input:("Register")
     await page.click('input:has-text("Register Now!")');
     const errorTxt = page.locator('#password-error .error-text');
-    // Expect text=Password can't be blank
     await expect(errorTxt).toHaveText('Password can\'t be blank');  
     
 });
@@ -113,11 +107,39 @@ test('registration_validation_password', async ({ page }) => {
 test('terms_and_conditions_validation_password', async ({ page }) => {
     
     await page.goto('/users/sign_up');
-    // Click input:("Register")
     await page.click('input:has-text("Register Now!")');
     const errorTxt = page.locator('#terms-error .error-text');
-    // Expect text=Terms and conditions must be accepted
     await expect(errorTxt).toHaveText('Terms and conditions must be accepted');  
     
 });
 
+
+
+// test('Registration', async ({ page }) => {
+//     await page.goto('/users/sign_up');
+//     await page.click('input[name="user[email]"]');
+//     await page.fill('input[name="user[email]"]', 'bartosz.tkacz@protonmail.com');
+//     await page.press('input[name="user[email]"]', 'Tab');
+//     await page.fill('input[name="user[password]"]', 'Password12345');
+//     await page.click('label:has-text("I agree to Paymi\'s Terms and Conditions")');
+//     await page.click('text=Register Now!');
+//     await expect(page).toHaveURL('https://staging.paymi.com/dashboard/how-to');
+//     await page.click('text=My Account');
+//     await page.click('text=Settings');
+//     await expect(page).toHaveURL('https://staging.paymi.com/users/edit');
+//     await page.click('text=Deactivate');
+//     await expect(page).toHaveURL('https://staging.paymi.com/users/edit#!/deactivate');
+//   });
+
+  test('log in and log out', async ({ page }) => {
+    await page.goto('/users/sign_in');
+    await page.click('input[name="user[email]"]');
+    await page.fill('input[name="user[email]"]', 'bartosz.tkacz@pm.me');
+    await page.press('input[name="user[email]"]', 'Tab');
+    await page.fill('input[name="user[password]"]', 'Password12345');
+    await page.click('input:has-text("Log In")');
+    await expect(page).toHaveURL('https://staging.paymi.com/dashboard/accounts');
+    await page.click('text=My Account');
+    await page.click('text=Log Out');
+    await expect(page).toHaveURL('https://staging.paymi.com/users/sign_in');
+  });
