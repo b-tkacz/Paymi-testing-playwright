@@ -25,7 +25,7 @@ test('Registration with deactivated email', async ({ page }) => {
 });
 
 
-test('Login on deactivated email', async ({ page }) => {
+test('Login with deactivated email', async ({ page }) => {
     await page.goto('/users/sign_in');
     await page.click('input[name="user[email]"]');
     await page.fill('input[name="user[email]"]', 'bartosz.tkacz@protonmail.com');
