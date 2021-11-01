@@ -106,7 +106,7 @@ test('terms_and_conditions_validation_password', async ({ page }) => {
 
 
 
-test('Registration', async ({ page }) => {
+test('Registration o deactivated email', async ({ page }) => {
     await page.goto('/users/sign_up');
     await page.click('input[name="user[email]"]');
     await page.fill('input[name="user[email]"]', 'bartosz.tkacz@protonmail.com');
@@ -116,6 +116,18 @@ test('Registration', async ({ page }) => {
     await page.click('text=Register Now!');
     const errorTxt = page.locator('.error-text')
     await expect(errorTxt).toHaveText('Email has already been taken');
+  });
+
+
+  test('Login on deactivated email', async ({ page }) => {
+    await page.goto('/users/sign_in');
+    await page.click('input[name="user[email]"]');
+    await page.fill('input[name="user[email]"]', 'bartosz.tkacz@protonmail.com');
+    await page.press('input[name="user[email]"]', 'Tab');
+    await page.fill('input[name="user[password]"]', 'Password12345');
+    await page.click('input:has-text("Log In")');
+    const errorTxt = page.locator('.error-box__errors')
+    await expect(errorTxt).toHaveText('Your account has been disabled. Please email hello@paymi.com to reactivate your account.');
   });
 
 
