@@ -24,12 +24,7 @@ test('Registration with deactivated email', async ({ page }) => {
     await expect(errorTxt).toHaveText('Email has already been taken');
 });
 
-
-<<<<<<< HEAD
 test('Login on deactivated email', async ({ page }) => {
-=======
-test('Login with deactivated email', async ({ page }) => {
->>>>>>> d1ed11964e8894f9dc04a599a4c8f7f0f32f08a1
     await page.goto('/users/sign_in');
     await page.click('input[name="user[email]"]');
     await page.fill('input[name="user[email]"]', 'bartosz.tkacz@protonmail.com');
@@ -52,8 +47,4 @@ test('log in and log out', async ({ page }) => {
     await page.click('text=My Account');
     await page.click('text=Log Out');
     await expect(page).toHaveURL('https://staging.paymi.com/users/sign_in');
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> d1ed11964e8894f9dc04a599a4c8f7f0f32f08a1
